@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SecurityServiceImpl implements SecurityService {
+    // TODO: add the Bean, needed for @Autowired annotation
     private AuthenticationManager authenticationManager;
 
     @Autowired

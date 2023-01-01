@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    // TODO: add the Bean, needed for @Autowired annotation
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
