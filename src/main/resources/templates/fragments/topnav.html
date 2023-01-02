@@ -1,0 +1,15 @@
+<div th:fragment="navbar">
+  <ul class="nav">
+    <li><a href="/welcome" class="active">Home</a></li>
+    <li><a href="browse.html">Browse</a></li>
+    <li><a href="details.html">Details</a></li>
+    <li><a href="streams.html">Streams</a></li>
+    <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a></li>
+    <div sec:authorize="isAuthenticated()" class="logout-option">
+      <form id="logoutForm" method="POST" th:action="@{/logout}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+      </form>
+      <p>Welcome <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></p>
+    </div>
+  </ul>
+</div>
