@@ -1,6 +1,8 @@
 package com.javaspringcourseproject.gameplifiers.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,10 +12,24 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    public Role() {
+
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade =  {
+              CascadeType.PERSIST, CascadeType.MERGE
+            },
+            mappedBy = "roles"
+    )
+    private Set<User> users = new HashSet<>();
 
     public Long getId() {
         return id;

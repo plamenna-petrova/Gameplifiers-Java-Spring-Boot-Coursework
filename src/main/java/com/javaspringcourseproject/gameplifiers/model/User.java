@@ -1,6 +1,8 @@
 package com.javaspringcourseproject.gameplifiers.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,15 +12,34 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String username;
 
+    @NotNull
     private String password;
 
-    @ManyToMany
-    private Set<Role> roles;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade =  {
+                    CascadeType.PERSIST, CascadeType.MERGE
+            }
+    )
+    @JoinTable(name = "user_roles",
+            joinColumns = { @JoinColumn(name = "users_id")},
+            inverseJoinColumns =  { @JoinColumn(name = "roles_id")}
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @Transient
     private String passwordConfirm;
+
+    public User() {
+
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Long getId() {
         return id;

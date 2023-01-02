@@ -11,8 +11,8 @@
 
 <div class="container">
 
-    <form method="POST" class="form-signin" th:object="${userForm}" th:action="@{/registration}">
-        <h2 class="form-signin-heading">Create your account</h2>
+    <form method="POST" class="authentication-form" th:object="${userForm}" th:action="@{/registration}">
+        <h2 class="authentication-form-heading">Create your account</h2>
         <div class="form-group">
             <input type="text" th:field="*{username}" class="form-control" placeholder="Username"
                    autofocus="true">
