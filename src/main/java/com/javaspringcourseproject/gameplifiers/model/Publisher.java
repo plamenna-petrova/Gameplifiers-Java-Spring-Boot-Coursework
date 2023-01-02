@@ -18,11 +18,20 @@ public class Publisher {
     private String name;
 
     @NotBlank(message = "Please provide headquarters for the publisher!")
-    @Size(min = 2, max = 30, message = "The headquarters of the publisher must be between 2 and 50 symbols long!")
+    @Size(min = 2, max = 30, message = "The headquarters of the publisher must be between 2 and 30 symbols long!")
     private String headquarters;
 
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
     private Set<Game> games = new HashSet<>();
+
+    public Publisher() {
+
+    }
+
+    public Publisher(String name, String headquarters) {
+        this.name = name;
+        this.headquarters = headquarters;
+    }
 
     public Long getId() {
         return id;

@@ -19,6 +19,10 @@ public class Game {
     @Max(value = 2023, message = "The year of release cannot be after 2023")
     private int yearOfRelease;
 
+    @Column(name = "image_url", nullable = false)
+    @NotBlank(message = "Please provide a image url for the game!")
+    private String imageUrl;
+
     @Column(name = "main_story_completion_time")
     @NotBlank(message = "Please provide an estimated for the main story's completion!")
     private String mainStoryCompletionTime;

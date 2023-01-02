@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Publisher</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fontawesome.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/templatemo-cyborg-gaming.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{https://unpkg.com/swiper@7/swiper-bundle.min.css}"/>
+</head>
+<body>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="my-5">New Publisher</h2>
+            <form action="#" th:action="@{/add-publisher}" th:object="${publisher}" method="post">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="name" class="col-form-label text-light">Name</label>
+                        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name of publisher">
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="headquarters" class="col-form-label text-light">Headquarters</label>
+                        <input type="text" th:field="*{headquarters}" class="form-control" id="headquarters" placeholder="Headquarters">
+                        <span th:if="${#fields.hasErrors('headquarters')}" th:errors="*{headquarters}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-5">
+                        <a class="btn btn-primary my-2 mr-2" th:href="@{/publishers}">Go Back</a>
+                        <input type="submit" class="btn btn-light m-2" value="Add Publisher">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

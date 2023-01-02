@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Publishers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fontawesome.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/templatemo-cyborg-gaming.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{https://unpkg.com/swiper@7/swiper-bundle.min.css}"/>
+</head>
+<body>
+    <div th:switch="${publishers}" class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 th:case="null">No publishers yet!</h2>
+                <div th:case="*">
+                    <h2 class="my-5">Publishers</h2>
+                    <a class="btn btn-primary mb-5" th:href="@{/add-publisher}">Create New Publisher</a>
+                    <table class="table table-light table-striped table-responsive table-hover">
+                        <thead>
+                          <tr>
+                              <th>Name</th>
+                              <th>Headquarters</th>
+                              <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="publisher : ${publishers}">
+                                <td th:text="${publisher.name}"></td>
+                                <td th:text="${publisher.headquarters}"></td>
+                                <td>
+                                    <a class="btn btn-success" th:href="@{/publisher/{id}(id=${publisher.id})}">Details</a>
+                                    <a class="btn btn-warning" th:href="@{/publisher/edit/{id}(id=${publisher.id})}">Edit</a>
+                                    <a class="btn btn-danger" th:href="@{/publisher/delete/{id}(id=${publisher.id})}">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

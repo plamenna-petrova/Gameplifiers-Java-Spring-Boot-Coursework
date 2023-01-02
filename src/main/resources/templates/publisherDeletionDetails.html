@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Publisher</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/fontawesome.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/templatemo-cyborg-gaming.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/owl.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{https://unpkg.com/swiper@7/swiper-bundle.min.css}"/>
+</head>
+<body>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="my-5">Delete Publisher</h2>
+      <form action="#" th:action="@{/publisher/delete/{id}(id=${publisher.id})}" th:object="${publisher}" method="post">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="alert alert-info">Do you really wish to delete <span th:text="${publisher.name}"></span> with headquarters:
+            <span th:text="${publisher.headquarters}"></span>?</div>
+            <a class="btn btn-primary my-2 mr-2" th:href="@{/publishers}">Go Back</a>
+            <input type="submit" class="btn btn-danger m-2" value="Delete Publisher">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
