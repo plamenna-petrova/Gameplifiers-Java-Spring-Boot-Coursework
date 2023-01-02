@@ -153,5 +153,9 @@ html, body {
 }
 
 .authentication-heading a {
-    color: #ffffff !important;
+    color: #1b3cc9 !important;
+}
+
+.log-out-success-message {
+    color: #1b3cc9;
 }

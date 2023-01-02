@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Log in with your account</title>
@@ -18,7 +18,7 @@
                         <p>Fill in the data below.</p>
                         <form class="authentication-form" method="POST" th:action="@{/login}">
                             <div class="form-group">
-                                <span th:text="${message}"></span>
+                                <span class="log-out-success-message" th:text="${message}"></span>
                                 <input name="username" type="text" class="form-control" placeholder="Username"
                                        autofocus="true"/>
                             </div>
