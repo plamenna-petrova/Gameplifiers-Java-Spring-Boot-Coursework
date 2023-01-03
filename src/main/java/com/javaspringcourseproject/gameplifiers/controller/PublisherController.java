@@ -133,7 +133,7 @@ public class PublisherController {
     }
 
     @PostMapping("/publisher/delete/{id}")
-    public String deletePublisher(@PathVariable("id") Long id, Publisher publisherToConfirmDeletion, Model model) {
+    public String deletePublisher(@PathVariable("id") Publisher publisherToConfirmDeletion, Model model) {
         if (!securityService.isAuthenticated()) {
             return "redirect:/login";
         }
