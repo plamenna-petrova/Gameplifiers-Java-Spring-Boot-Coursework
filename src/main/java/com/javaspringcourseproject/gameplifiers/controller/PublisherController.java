@@ -7,6 +7,7 @@ import com.javaspringcourseproject.gameplifiers.service.SecurityService;
 import com.javaspringcourseproject.gameplifiers.service.UserService;
 import com.javaspringcourseproject.gameplifiers.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,14 +25,21 @@ public class PublisherController {
     @Autowired
     PublisherRepository publisherRepository;
 
-    @GetMapping("/publishers")
-    public String publishers(Model model) {
+    @RequestMapping("/publishers")
+    public String publishers(Model model, @Param("keyword") String keyword) {
         if (!securityService.isAuthenticated()) {
             return "redirect:/login";
         }
 
-        List<Publisher> allPublishers = publisherRepository.findAll();
-        model.addAttribute("publishers", allPublishers);
+        if (keyword != null) {
+            List<Publisher> searchedPublishers = publisherRepository.findPublishersByKeyword(keyword);
+            model.addAttribute("publishers", searchedPublishers);
+        } else {
+            List<Publisher> allPublishers = publisherRepository.findAll();
+            model.addAttribute("publishers", allPublishers);
+        }
+
+        model.addAttribute("keyword", keyword);
 
         return "publishers";
     }
