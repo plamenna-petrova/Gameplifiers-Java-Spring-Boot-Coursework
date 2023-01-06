@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.time.Year;
 import java.util.List;
 
 @Controller
@@ -51,10 +52,13 @@ public class GameController {
 
     @GetMapping("/add-game")
     public String addGame(Model model) {
-        List<Publisher> listOfPublisherForSelectList = publisherService.findAllPublishers();
+        List<Publisher> listOfPublisherForCreationSelectList = publisherService.findAllPublishers();
 
-        model.addAttribute("game", new Game());
-        model.addAttribute("listOfPublishers", listOfPublisherForSelectList);
+        Game blankGame = new Game();
+        blankGame.setYearOfRelease(Year.now().getValue());
+
+        model.addAttribute("game", blankGame);
+        model.addAttribute("listOfPublishers", listOfPublisherForCreationSelectList);
 
         return "addGame";
     }
@@ -75,9 +79,13 @@ public class GameController {
 
     @GetMapping("/game/edit/{id}")
     public String editGame(@PathVariable("id") Long id, Model model) {
+        List<Publisher> listOfPublisherForEditSelectList = publisherService.findAllPublishers();
+
         Game gameToEdit = gameService.findGameById(id);
 
         model.addAttribute("game", gameToEdit);
+        model.addAttribute("listOfPublishers", listOfPublisherForEditSelectList);
+
         return "editGame";
     }
 
@@ -86,6 +94,8 @@ public class GameController {
                                   BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             gameToUpdate.setId(id);
+            List<Publisher> listOfPublisherForEditSelectList = publisherService.findAllPublishers();
+            model.addAttribute("listOfPublishers", listOfPublisherForEditSelectList);
             return "editGame";
         }
 

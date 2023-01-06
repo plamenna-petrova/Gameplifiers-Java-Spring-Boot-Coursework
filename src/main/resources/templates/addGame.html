@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fontawesome.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/templatemo-cyborg-gaming.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{https://unpkg.com/swiper@7/swiper-bundle.min.css}"/>
+</head>
+<body>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-10">
+            <h2 class="my-5">New Game</h2>
+            <form action="#" th:action="@{/add-game}" th:object="${game}" method="post">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="title" class="col-form-label text-light">Title</label>
+                        <input type="text" th:field="*{title}" class="form-control" id="title">
+                        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="edition" class="col-form-label text-light">Edition</label>
+                        <input type="text" th:field="*{edition}" class="form-control" id="edition">
+                        <span th:if="${#fields.hasErrors('edition')}" th:errors="*{edition}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="yearOfRelease" class="col-form-label text-light">Year of Release</label>
+                        <input type="number" th:field="*{yearOfRelease}" class="form-control" id="yearOfRelease">
+                        <span th:if="${#fields.hasErrors('yearOfRelease')}" th:errors="*{yearOfRelease}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="imageUrl" class="col-form-label text-light">Image URL</label>
+                        <input type="text" th:field="*{imageUrl}" class="form-control" id="imageUrl">
+                        <span th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="publisher">Publisher</label>
+                        <select th:field="*{publisher}" class="form-control" id="publisher">
+                            <th:block th:each="publisher: ${listOfPublishers}">
+                                <option th:text="${publisher.name}" th:value="${publisher.id}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="mainStoryCompletionTime" class="col-form-label text-light">Main Story</label>
+                        <input type="text" th:field="*{mainStoryCompletionTime}" class="form-control" id="mainStoryCompletionTime">
+                        <span th:if="${#fields.hasErrors('mainStoryCompletionTime')}" th:errors="*{mainStoryCompletionTime}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="mainStoryPlusSideQuestsCompletionTime" class="col-form-label text-light">Main + Sides</label>
+                        <input type="text" th:field="*{mainStoryPlusSideQuestsCompletionTime}" class="form-control" id="mainStoryPlusSideQuestsCompletionTime">
+                        <span th:if="${#fields.hasErrors('mainStoryPlusSideQuestsCompletionTime')}" th:errors="*{mainStoryPlusSideQuestsCompletionTime}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="completionistTime" class="col-form-label text-light">Completionist</label>
+                        <input type="text" th:field="*{completionistTime}" class="form-control" id="completionistTime">
+                        <span th:if="${#fields.hasErrors('completionistTime')}" th:errors="*{completionistTime}" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="allStylesCompletionTime" class="col-form-label text-light">All Styles</label>
+                        <input type="text" th:field="*{allStylesCompletionTime}" class="form-control" id="allStylesCompletionTime">
+                        <span th:if="${#fields.hasErrors('allStylesCompletionTime')}" th:errors="*{allStylesCompletionTime}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="annotation">Annotation</label>
+                        <textarea th:field="*{annotation}" class="form-control" id="annotation" rows="10"></textarea>
+                        <span th:if="${#fields.hasErrors('annotation')}" th:errors="*{annotation}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-5">
+                        <a class="btn btn-primary my-2 mr-2" th:href="@{/games}">Go Back</a>
+                        <input type="submit" class="btn btn-light m-2" value="Add Game">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
