@@ -7,9 +7,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PublisherRepository extends JpaRepository<Publisher, Long> {
+    Optional<Publisher> findById(Long id);
+
+    List<Publisher> findByNameContainingIgnoreCase(String name);
+
+    List<Publisher> findByHeadquartersContainingIgnoreCase(String headquarters);
+
     @Query("SELECT p FROM Publisher p WHERE CONCAT(p.name, ' ', p.headquarters) LIKE %?1%")
     List<Publisher> findPublishersByKeyword(String keyword);
 }

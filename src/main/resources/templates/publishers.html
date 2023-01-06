@@ -20,11 +20,28 @@
                     <a class="btn btn-primary" th:href="@{/add-publisher}">Create New Publisher</a>
                     <div class="container my-5 p-0">
                         <form th:action="@{/publishers}">
-                            <span class="text-light">Search For Publishers: </span> <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
-                            &nbsp;
-                            <input class="btn btn-primary" type="submit" value="Search" />
-                            &nbsp;
-                            <input class="btn btn-secondary" type="button" value="Clear" id="btnClear" onclick="clearPublishersSearch()" />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="search-publishers-text-wrapper" style="margin-top: 30px;">
+                                        <span class="text-light">Search For Publishers: </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="searchTerm"></label>
+                                    <input type="text" class="form-control" name="searchTerm" id="searchTerm" size="50" th:value="${searchTerm}" required />
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="criterion">Search by: </label>
+                                    <select class="form-select" name="criterion" id="criterion">
+                                        <option value="name">Name</option>
+                                        <option value="headquarters">Headquarters</option>
+                                    </select>&nbsp;
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="btn btn-primary mt-4 mr-2" type="submit" value="Search" />&nbsp;
+                                    <input class="btn btn-secondary mt-4 mx-2" type="button" value="Clear" id="btnClear" onclick="clearPublishersSearch()" />
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <table class="table table-light table-striped table-responsive table-hover">
