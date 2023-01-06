@@ -33,7 +33,7 @@ public class PublisherServiceImpl implements PublisherService{
         publisherRepository.delete(publisher);
     }
 
-    public List<Publisher> searchByCriteria(@Nullable String criterion, @Nullable String searchTerm) {
+    public List<Publisher> searchPublishersByCriteria(@Nullable String criterion, @Nullable String searchTerm) {
         List<Publisher> publishersToSearchByCriteria = new ArrayList<>();
 
         if (criterion != null) {

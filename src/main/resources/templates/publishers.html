@@ -33,8 +33,8 @@
                                 <div class="col-md-3">
                                     <label for="criterion">Search by: </label>
                                     <select class="form-select" name="criterion" id="criterion">
-                                        <option value="name">Name</option>
-                                        <option value="headquarters">Headquarters</option>
+                                        <option value="name" th:selected="(${criterion} == 'name')">Name</option>
+                                        <option value="headquarters" th:selected="(${criterion} == 'headquarters')">Headquarters</option>
                                     </select>&nbsp;
                                 </div>
                                 <div class="col-md-3">

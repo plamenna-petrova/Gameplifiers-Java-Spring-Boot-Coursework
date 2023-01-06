@@ -1,7 +1,10 @@
 package com.javaspringcourseproject.gameplifiers.controller;
 
 import com.javaspringcourseproject.gameplifiers.model.Game;
+import com.javaspringcourseproject.gameplifiers.model.Publisher;
 import com.javaspringcourseproject.gameplifiers.repository.GameRepository;
+import com.javaspringcourseproject.gameplifiers.service.GameService;
+import com.javaspringcourseproject.gameplifiers.service.PublisherService;
 import com.javaspringcourseproject.gameplifiers.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -18,67 +21,53 @@ import java.util.List;
 
 @Controller
 public class GameController {
-    @Autowired
-    SecurityService securityService;
 
     @Autowired
-    GameRepository gameRepository;
+    GameService gameService;
+
+    @Autowired
+    PublisherService publisherService;
 
     @RequestMapping("/games")
-    public String games(Model model, @Param("keyword") String keyword) {
-        if (!securityService.isAuthenticated()) {
-            return "redirect:/login";
-        }
+    public String games(Model model, @Param("criterion") String criterion,
+                        @Param("searchTerm") String searchTerm) {
+        List<Game> gamesSearchResults = gameService.searchGamesByCriteria(criterion, searchTerm);
 
-        if (keyword != null) {
-            List<Game> searchedGames = gameRepository.findGamesByKeyword(keyword);
-            model.addAttribute("games", searchedGames);
-        } else {
-            List<Game> allGames = gameRepository.findAll();
-            model.addAttribute("games", allGames);
-        }
-
-        model.addAttribute("keyword", keyword);
+        model.addAttribute("games", gamesSearchResults);
+        model.addAttribute("criterion", criterion);
+        model.addAttribute("searchTerm", searchTerm);
 
         return "games";
     }
 
     @GetMapping("/game/{id}")
     public String gameDetails(@PathVariable("id") Long id, Model model) {
-        if (!securityService.isAuthenticated()) {
-            return "redirect:/login";
-        }
-
-        Game singleGame = gameRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid game Id: " + id));
+        Game singleGame = gameService.findGameById(id);
 
         model.addAttribute("game", singleGame);
+
         return "gameDetails";
     }
 
     @GetMapping("/add-game")
     public String addGame(Model model) {
-        if (!securityService.isAuthenticated()) {
-            return "redirect:/login";
-        }
+        List<Publisher> listOfPublisherForSelectList = publisherService.findAllPublishers();
 
         model.addAttribute("game", new Game());
+        model.addAttribute("listOfPublishers", listOfPublisherForSelectList);
+
         return "addGame";
     }
 
     @PostMapping("/add-game")
     public String addGame(@Valid Game game, BindingResult bindingResult, Model model) {
-        if (!securityService.isAuthenticated()) {
-            return "redirect:/login";
-        }
-
         if (bindingResult.hasErrors()) {
             return "addGame";
         }
 
-        gameRepository.save(game);
+        gameService.upsertGame(game);
 
-        List<Game> gamesToLoadAfterCreation = gameRepository.findAll();
+        List<Game> gamesToLoadAfterCreation = gameService.findAllGames();
         model.addAttribute("games", gamesToLoadAfterCreation);
 
         return "redirect:/games";
@@ -86,12 +75,7 @@ public class GameController {
 
     @GetMapping("/game/edit/{id}")
     public String editGame(@PathVariable("id") Long id, Model model) {
-        if (!securityService.isAuthenticated()) {
-            return "redirect:/login";
-        }
-
-        Game gameToEdit = gameRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid game Id: " + id));
+        Game gameToEdit = gameService.findGameById(id);
 
         model.addAttribute("game", gameToEdit);
         return "editGame";
@@ -100,18 +84,14 @@ public class GameController {
     @PostMapping("/game/update/{id}")
     public String updateGame(@PathVariable("id") Long id, @Valid Game gameToUpdate,
                                   BindingResult bindingResult, Model model) {
-        if (!securityService.isAuthenticated()) {
-            return "redirect:/login";
-        }
-
         if (bindingResult.hasErrors()) {
             gameToUpdate.setId(id);
             return "editGame";
         }
 
-        gameRepository.save(gameToUpdate);
+        gameService.upsertGame(gameToUpdate);
 
-        List<Game> gamesToLoadAfterUpdate = gameRepository.findAll();
+        List<Game> gamesToLoadAfterUpdate = gameService.findAllGames();
         model.addAttribute("game", gamesToLoadAfterUpdate);
 
         return "redirect:/games";
@@ -119,12 +99,7 @@ public class GameController {
 
     @GetMapping("/game/delete/{id}")
     public String gameDeletionDetails(@PathVariable("id") Long id, Model model) {
-        if (!securityService.isAuthenticated()) {
-            return "redirect:/login";
-        }
-
-        Game gameToDelete = gameRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid game Id:" + id));
+        Game gameToDelete = gameService.findGameById(id);
 
         model.addAttribute("game", gameToDelete);
 
@@ -133,13 +108,9 @@ public class GameController {
 
     @PostMapping("/game/delete/{id}")
     public String deleteGame(@PathVariable("id") Game gameToConfirmDeletion, Model model) {
-        if (!securityService.isAuthenticated()) {
-            return "redirect:/login";
-        }
+        gameService.deleteGame(gameToConfirmDeletion);
 
-        gameRepository.delete(gameToConfirmDeletion);
-
-        List<Game> gamesToLoadAfterDeletion = gameRepository.findAll();
+        List<Game> gamesToLoadAfterDeletion = gameService.findAllGames();
 
         model.addAttribute("games", gamesToLoadAfterDeletion);
 

@@ -27,11 +27,11 @@ public class PublisherController {
     @RequestMapping("/publishers")
     public String publishers(Model model, @Param("criterion") String criterion,
                              @Param("searchTerm") String searchTerm) {
-        List<Publisher> searchedPublishers = publisherService.searchByCriteria(criterion, searchTerm);
+        List<Publisher> publishersSearchResults = publisherService.searchPublishersByCriteria(criterion, searchTerm);
 
-        model.addAttribute("publishers", searchedPublishers);
         model.addAttribute("criterion", criterion);
         model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("publishers", publishersSearchResults);
 
         return "publishers";
     }
@@ -41,12 +41,14 @@ public class PublisherController {
         Publisher singlePublisher = publisherService.findPublisherById(id);
 
         model.addAttribute("publisher", singlePublisher);
+
         return "publisherDetails";
     }
 
     @GetMapping("/add-publisher")
     public String addPublisher(Model model) {
         model.addAttribute("publisher", new Publisher());
+
         return "addPublisher";
     }
 
@@ -69,6 +71,7 @@ public class PublisherController {
         Publisher publisherToEdit = publisherService.findPublisherById(id);
 
         model.addAttribute("publisher", publisherToEdit);
+
         return "editPublisher";
     }
 

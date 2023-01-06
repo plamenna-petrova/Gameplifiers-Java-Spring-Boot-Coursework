@@ -11,8 +11,16 @@ import java.util.Optional;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
+    Optional<Game> findById(Long id);
+
+    List<Game> findByTitleContainingIgnoreCase(String title);
+
+    List<Game> findByYearOfRelease(int yearOfRelease);
+
+    List<Game> findByEditionContainingIgnoreCase(String version);
+
+    List<Game> findByPublisherNameContainingIgnoreCase(String publisherName);
+
     @Query("SELECT g FROM Game g WHERE CONCAT(g.title, ' ', g.yearOfRelease, '', g.publisher.name) LIKE %?1%")
     List<Game> findGamesByKeyword(String keyword);
-
-    Optional<Game> findById(Long id);
 }
