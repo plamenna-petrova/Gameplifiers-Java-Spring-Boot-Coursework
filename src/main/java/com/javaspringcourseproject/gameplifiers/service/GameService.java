@@ -16,5 +16,5 @@ public interface GameService {
 
     List<Game> searchGamesByCriteria(@Nullable String criterion, @Nullable String searchTerm);
 
-    List<Game> findTopFiveGames();
+    List<Game> findTopFourGames();
 }

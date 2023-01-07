@@ -18,7 +18,7 @@ public interface PublisherRepository extends JpaRepository<Publisher, Long> {
 
     List<Publisher> findByHeadquartersContainingIgnoreCase(String headquarters);
 
-    List<Publisher> findTop5ByOrderByNameAsc();
+    List<Publisher> findTop4ByOrderByNameAsc();
 
     @Query("SELECT p FROM Publisher p WHERE CONCAT(p.name, ' ', p.headquarters) LIKE %?1%")
     List<Publisher> findPublishersByKeyword(String keyword);

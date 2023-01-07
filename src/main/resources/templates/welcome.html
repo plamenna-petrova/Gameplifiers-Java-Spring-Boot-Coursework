@@ -77,8 +77,14 @@
                 <th:block th:each="game: ${topGames}">
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-                      <img th:src="${game.imageUrl}" alt="">
-                      <h4><span th:text="${game.title}"></span><br/><span th:text="${game.edition}"></span></h4>
+                      <a th:href="@{/game/{id}(id=${game.id})}">
+                        <img th:src="${game.imageUrl}" alt="Top Game Image">
+                      </a>
+                      <h4>
+                        <span class="text-primary" th:text="${game.title}"></span>
+                        <br/>
+                        <span class="text-primary" th:text="${game.edition}"></span>
+                      </h4>
                     </div>
                   </div>
                 </th:block>

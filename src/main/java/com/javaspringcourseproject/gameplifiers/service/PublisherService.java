@@ -16,5 +16,5 @@ public interface PublisherService {
 
     List<Publisher> searchPublishersByCriteria(@Nullable String criterion, @Nullable String searchTerm);
 
-    List<Publisher> findTopFivePublishers();
+    List<Publisher> findTopFourPublishers();
 }

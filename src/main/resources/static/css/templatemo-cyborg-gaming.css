@@ -768,6 +768,9 @@ Header Style
   .header-area .main-nav .nav li.submenu:hover ul, .header-area .main-nav .nav li.submenu:focus ul {
     height: 0px;
   }
+  .main-profile img {
+    height: 600px;
+  }
 }
 
 /* 
@@ -777,7 +780,7 @@ Banner Style
 */
 
 .main-banner {
-  background-image: url(../../assets/images/banner-bg.jpg);
+  background-image: url(../images/modern-futuristic-sci-fi-background_35913-2221.webp);
   background-position: center center;
   background-size: cover;
   min-height: 380px;
@@ -832,6 +835,7 @@ Most Popular Style
 
 .most-popular .item img {
   border-radius: 23px;
+  height: 230px;
 }
 
 .most-popular .item h4 {
@@ -1527,6 +1531,10 @@ Profile Style
   background-color: #1f2122;
 }
 
+.main-profile img {
+  height: 400px;
+}
+
 .main-profile .main-info span {
   font-size: 14px;
   color: #fff;
@@ -1540,8 +1548,8 @@ Profile Style
   margin-bottom: 15px;
 }
 
-.main-profile .main-info h4 {
-  margin-bottom: 20px;
+.main-profile .main-info h5 {
+  margin-bottom: 10px;
 }
 
 .main-profile .main-info .main-border-button {
@@ -1736,4 +1744,8 @@ body {
 
 .logout-option p a {
   color: #1b3cc9 !important;
+}
+
+p {
+  text-align: justify;
 }

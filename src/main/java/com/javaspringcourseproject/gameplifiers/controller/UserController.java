@@ -79,8 +79,8 @@ public class UserController {
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
 
-        List<Game> topGames = gameService.findTopFiveGames();
-        List<Publisher> topPublishers = publisherService.findTopFivePublishers();
+        List<Game> topGames = gameService.findTopFourGames();
+        List<Publisher> topPublishers = publisherService.findTopFourPublishers();
 
         model.addAttribute("topGames", topGames);
         model.addAttribute("topPublishers", topPublishers);

@@ -60,7 +60,7 @@ public class GameServiceImpl implements GameService {
         return gamesToSearchByCriteria;
     }
 
-    public List<Game> findTopFiveGames() {
-        return gameRepository.findTop5ByOrderByTitleAsc();
+    public List<Game> findTopFourGames() {
+        return gameRepository.findTop4ByOrderByTitleAsc();
     }
 }

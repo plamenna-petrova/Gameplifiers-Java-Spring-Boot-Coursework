@@ -17,54 +17,90 @@
   </style>
 </head>
 <body>
-<div class="container my-5">
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a href="/welcome" class="logo">
+            <img src="/images/Gameplifiers_Logo-removebg-preview.png" alt="">
+          </a>
+          <div th:replace="fragments/topnav :: navbar"></div>
+          <a class='menu-trigger'>
+            <span>Menu</span>
+          </a>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+<div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <h2 class="my-5">Game Details</h2>
-      <div th:object="${game}">
-        <dl>
-          <dt class="text-light">Title</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.title}"></div>
-          </dd>
-          <dt class="text-light">Edition</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.edition}"></div>
-          </dd>
-          <dt class="text-light">Image</dt>
-          <dd>
-            <img class="game-image" th:src="${game.imageUrl}" />
-          </dd>
-          <dt class="text-light">Publisher</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.publisher.name}"></div>
-          </dd>
-          <dt class="text-light">Year Of Release</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.yearOfRelease}"></div>
-          </dd>
-          <dt class="text-light">Main Story Completion Time</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.mainStoryCompletionTime}"></div>
-          </dd>
-          <dt class="text-light">Main Story + Side Quests Completion TIme</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.mainStoryPlusSideQuestsCompletionTime}"></div>
-          </dd>
-          <dt class="text-light">Completionist Time</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.completionistTime}"></div>
-          </dd>
-          <dt class="text-light">All Styles Completion Time</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.allStylesCompletionTime}"></div>
-          </dd>
-          <dt class="text-light">Annotation</dt>
-          <dd>
-            <div class="text-primary" th:text="${game.annotation}"></div>
-          </dd>
-        </dl>
-        <a class="btn btn-primary my-2 mr-2" th:href="@{/games}">Go Back</a>
+    <div class="col-lg-12">
+      <div class="page-content" th:object="${game}">
+        <!-- ***** Banner Start ***** -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="main-profile">
+              <div class="row">
+                <div class="col-lg-4">
+                  <img th:src="${game.imageUrl}" style="border-radius: 23px;" alt="Game Details Image">
+                </div>
+                <div class="col-lg-4 align-self-center">
+                  <div class="main-info header-text">
+                    <span th:text="${game.edition}"></span>
+                    <h5>Title: </h5>
+                    <h5 class="text-primary" th:text="${game.title}"></h5>
+                    <h5>Publisher: </h5>
+                    <h5 class="text-primary" th:text="${game.publisher.name}"></h5>
+                    <h5>Released In: </h5>
+                    <h5 class="text-primary" th:text="${game.yearOfRelease}"></h5>
+                  </div>
+                </div>
+                <div class="col-lg-4 align-self-center">
+                  <ul>
+                    <li>
+                      Main Story
+                      <span th:text="${game.mainStoryCompletionTime} + ' ' +'Hours'"></span>
+                    </li>
+                    <li>
+                      Main + Sides
+                      <span th:text="${game.mainStoryPlusSideQuestsCompletionTime} + ' ' + 'Hours'"></span>
+                    </li>
+                    <li>
+                      Completionist
+                      <span th:text="${game.completionistTime} + ' ' + 'Hours'"></span>
+                    </li>
+                    <li>
+                      All Styles
+                      <span th:text="${game.allStylesCompletionTime} + ' ' + 'Hours'"></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ***** Banner End ***** -->
+        <div class="row mt-3">
+          <div class="col-lg-12">
+            <p th:text="${game.annotation}"></p>
+            <br />
+            <p>When focusing on the main objectives, <span th:text="${game.title}"></span>
+              is about <span th:text="${game.mainStoryCompletionTime}"></span> Hours in length.
+              If you're a gamer that strives to see all aspects of the game,
+              you are likely to spend around <span th:text="${game.completionistTime}"></span> Hours to obtain 100% completion.</p>
+          </div>
+          <div class="col-lg-12 text-center mt-4">
+            <div class="main-button">
+              <a th:href="@{/games}">Go Back</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
