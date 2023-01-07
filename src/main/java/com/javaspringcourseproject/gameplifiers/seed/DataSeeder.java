@@ -9,6 +9,7 @@ import com.javaspringcourseproject.gameplifiers.repository.RoleRepository;
 import com.javaspringcourseproject.gameplifiers.repository.UserRepository;
 import com.javaspringcourseproject.gameplifiers.service.GameService;
 import com.javaspringcourseproject.gameplifiers.service.PublisherService;
+import com.javaspringcourseproject.gameplifiers.service.RoleService;
 import com.javaspringcourseproject.gameplifiers.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,7 +21,7 @@ import java.util.List;
 @Component
 public class DataSeeder implements CommandLineRunner {
     @Autowired
-    RoleRepository roleRepository;
+    RoleService roleService;
 
     @Autowired
     UserService userService;
@@ -38,14 +39,14 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void loadRolesAndUsers() {
-        if (roleRepository.count() == 0) {
+        if (roleService.findAllRoles().size() == 0) {
             List<Role> rolesToSeed = new ArrayList<Role>();
             rolesToSeed.add(new Role("Administrator"));
             rolesToSeed.add(new Role("Editor"));
             rolesToSeed.add(new Role("Contributor"));
             rolesToSeed.add(new Role("NormalUser"));
             for (Role role: rolesToSeed) {
-                roleRepository.save(role);
+                roleService.saveRole(role);
             }
         }
 
