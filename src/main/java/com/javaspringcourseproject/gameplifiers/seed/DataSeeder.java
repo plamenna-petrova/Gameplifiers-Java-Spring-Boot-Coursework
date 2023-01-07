@@ -4,9 +4,6 @@ import com.javaspringcourseproject.gameplifiers.model.Game;
 import com.javaspringcourseproject.gameplifiers.model.Publisher;
 import com.javaspringcourseproject.gameplifiers.model.Role;
 import com.javaspringcourseproject.gameplifiers.model.User;
-import com.javaspringcourseproject.gameplifiers.repository.PublisherRepository;
-import com.javaspringcourseproject.gameplifiers.repository.RoleRepository;
-import com.javaspringcourseproject.gameplifiers.repository.UserRepository;
 import com.javaspringcourseproject.gameplifiers.service.GameService;
 import com.javaspringcourseproject.gameplifiers.service.PublisherService;
 import com.javaspringcourseproject.gameplifiers.service.RoleService;
@@ -20,6 +17,7 @@ import java.util.List;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
+
     @Autowired
     RoleService roleService;
 

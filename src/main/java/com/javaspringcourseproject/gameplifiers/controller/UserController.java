@@ -88,4 +88,9 @@ public class UserController {
 
         return "welcome";
     }
+
+    @GetMapping("/*")
+    public String handle() {
+        return "404";
+    }
 }

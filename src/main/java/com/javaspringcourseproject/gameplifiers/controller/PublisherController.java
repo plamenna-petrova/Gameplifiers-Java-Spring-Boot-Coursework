@@ -1,13 +1,8 @@
 package com.javaspringcourseproject.gameplifiers.controller;
 
 import com.javaspringcourseproject.gameplifiers.model.Publisher;
-import com.javaspringcourseproject.gameplifiers.model.User;
-import com.javaspringcourseproject.gameplifiers.repository.PublisherRepository;
-import com.javaspringcourseproject.gameplifiers.service.GameService;
 import com.javaspringcourseproject.gameplifiers.service.PublisherService;
-import com.javaspringcourseproject.gameplifiers.service.SecurityService;
 import com.javaspringcourseproject.gameplifiers.service.UserService;
-import com.javaspringcourseproject.gameplifiers.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,5 @@
 package com.javaspringcourseproject.gameplifiers.service;
 
-import com.javaspringcourseproject.gameplifiers.model.Role;
 import com.javaspringcourseproject.gameplifiers.model.User;
 
 import java.util.List;

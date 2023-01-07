@@ -2,17 +2,11 @@ package com.javaspringcourseproject.gameplifiers.controller;
 
 import com.javaspringcourseproject.gameplifiers.model.Game;
 import com.javaspringcourseproject.gameplifiers.model.Publisher;
-import com.javaspringcourseproject.gameplifiers.repository.GameRepository;
 import com.javaspringcourseproject.gameplifiers.service.GameService;
 import com.javaspringcourseproject.gameplifiers.service.PublisherService;
-import com.javaspringcourseproject.gameplifiers.service.SecurityService;
 import com.javaspringcourseproject.gameplifiers.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Controller
