@@ -1,6 +1,10 @@
 package com.javaspringcourseproject.gameplifiers.controller;
 
+import com.javaspringcourseproject.gameplifiers.model.Game;
+import com.javaspringcourseproject.gameplifiers.model.Publisher;
 import com.javaspringcourseproject.gameplifiers.model.User;
+import com.javaspringcourseproject.gameplifiers.service.GameService;
+import com.javaspringcourseproject.gameplifiers.service.PublisherService;
 import com.javaspringcourseproject.gameplifiers.service.SecurityService;
 import com.javaspringcourseproject.gameplifiers.service.UserService;
 import com.javaspringcourseproject.gameplifiers.validator.UserValidator;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class UserController {
     @Autowired
@@ -22,6 +28,12 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private GameService gameService;
+
+    @Autowired
+    private PublisherService publisherService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -66,6 +78,13 @@ public class UserController {
 
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
+
+        List<Game> topGames = gameService.findTopFiveGames();
+        List<Publisher> topPublishers = publisherService.findTopFivePublishers();
+
+        model.addAttribute("topGames", topGames);
+        model.addAttribute("topPublishers", topPublishers);
+
         return "welcome";
     }
 }

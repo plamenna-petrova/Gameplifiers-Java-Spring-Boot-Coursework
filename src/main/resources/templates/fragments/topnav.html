@@ -3,13 +3,11 @@
     <li><a href="/welcome" class="active">Home</a></li>
     <li><a href="/publishers">Publishers</a></li>
     <li><a href="/games">Games</a></li>
-    <li><a href="streams.html">Streams</a></li>
-    <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a></li>
-    <div sec:authorize="isAuthenticated()" class="logout-option">
+    <div sec:authorize="isAuthenticated()" class="logout-option mt-2">
       <form id="logoutForm" method="POST" th:action="@{/logout}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       </form>
-      <p>Welcome <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></p>
+      <p>Welcome, <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></p>
     </div>
   </ul>
 </div>

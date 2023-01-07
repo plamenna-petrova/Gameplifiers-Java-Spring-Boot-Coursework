@@ -15,4 +15,6 @@ public interface GameService {
     void deleteGame(Game game);
 
     List<Game> searchGamesByCriteria(@Nullable String criterion, @Nullable String searchTerm);
+
+    List<Game> findTopFiveGames();
 }

@@ -1,5 +1,6 @@
 package com.javaspringcourseproject.gameplifiers.repository;
 
+import com.javaspringcourseproject.gameplifiers.model.Game;
 import com.javaspringcourseproject.gameplifiers.model.Publisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,8 @@ public interface PublisherRepository extends JpaRepository<Publisher, Long> {
     List<Publisher> findByNameContainingIgnoreCase(String name);
 
     List<Publisher> findByHeadquartersContainingIgnoreCase(String headquarters);
+
+    List<Publisher> findTop5ByOrderByNameAsc();
 
     @Query("SELECT p FROM Publisher p WHERE CONCAT(p.name, ' ', p.headquarters) LIKE %?1%")
     List<Publisher> findPublishersByKeyword(String keyword);

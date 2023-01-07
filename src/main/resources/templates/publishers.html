@@ -3,75 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <title>Publishers</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/css/fontawesome.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/templatemo-cyborg-gaming.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/owl.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}">
     <link rel="stylesheet" type="text/css" th:href="@{https://unpkg.com/swiper@7/swiper-bundle.min.css}"/>
+    <style>
+        .publishers-heading {
+            margin-top: 75px !important;
+        }
+    </style>
 </head>
 <body>
-    <div th:switch="${publishers}" class="container my-5">
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+    <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 th:case="null">No publishers yet!</h2>
-                <div th:case="*">
-                    <h2 class="my-5">Publishers</h2>
-                    <a class="btn btn-primary" th:href="@{/add-publisher}">Create New Publisher</a>
-                    <div class="container my-5 p-0">
-                        <form th:action="@{/publishers}">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="search-publishers-text-wrapper" style="margin-top: 30px;">
-                                        <span class="text-light">Search For Publishers: </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="searchTerm"></label>
-                                    <input type="text" class="form-control" name="searchTerm" id="searchTerm" size="50" th:value="${searchTerm}" required />
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="criterion">Search by: </label>
-                                    <select class="form-select" name="criterion" id="criterion">
-                                        <option value="name" th:selected="(${criterion} == 'name')">Name</option>
-                                        <option value="headquarters" th:selected="(${criterion} == 'headquarters')">Headquarters</option>
-                                    </select>&nbsp;
-                                </div>
-                                <div class="col-md-3">
-                                    <input class="btn btn-primary mt-4 mr-2" type="submit" value="Search" />&nbsp;
-                                    <input class="btn btn-secondary mt-4 mx-2" type="button" value="Clear" id="btnClear" onclick="clearPublishersSearch()" />
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <table class="table table-light table-striped table-responsive table-hover">
-                        <thead>
-                          <tr>
-                              <th>Name</th>
-                              <th>Headquarters</th>
-                              <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="publisher : ${publishers}">
-                                <td th:text="${publisher.name}"></td>
-                                <td th:text="${publisher.headquarters}"></td>
-                                <td>
-                                    <a class="btn btn-success" th:href="@{/publisher/{id}(id=${publisher.id})}">Details</a>
-                                    <a class="btn btn-warning" th:href="@{/publisher/edit/{id}(id=${publisher.id})}">Edit</a>
-                                    <a class="btn btn-danger" th:href="@{/publisher/delete/{id}(id=${publisher.id})}">Delete</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="/welcome" class="logo">
+                        <img src="/images/Gameplifiers_Logo-removebg-preview.png" alt="">
+                    </a>
+                    <div th:replace="fragments/topnav :: navbar"></div>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        const clearPublishersSearch = () => {
-            window.location = "[[@{/publishers}]]";
-        }
-    </script>
+</header>
+<div th:switch="${publishers}" class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 th:case="null">No publishers yet!</h2>
+            <div th:case="*">
+                <h2 class="publishers-heading mb-5">Publishers</h2>
+                <a class="btn btn-primary" th:href="@{/add-publisher}">Create New Publisher</a>
+                <div class="container my-5 p-0">
+                    <form th:action="@{/publishers}">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="search-publishers-text-wrapper" style="margin-top: 30px;">
+                                    <span class="text-light">Search For Publishers: </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="searchTerm" class="text-light">Enter keyword</label>
+                                <input type="text" class="form-control" name="searchTerm" id="searchTerm" size="50"
+                                       th:value="${searchTerm}" required/>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="criterion" class="text-light">Search by: </label>
+                                <select class="form-select" name="criterion" id="criterion">
+                                    <option value="name" th:selected="(${criterion} == 'name')">Name</option>
+                                    <option value="headquarters" th:selected="(${criterion} == 'headquarters')">
+                                        Headquarters
+                                    </option>
+                                </select>&nbsp;
+                            </div>
+                            <div class="col-md-3">
+                                <input class="btn btn-primary mt-4 mr-2" type="submit" value="Search"/>&nbsp;
+                                <input class="btn btn-secondary mt-4 mx-2" type="button" value="Clear" id="btnClear"
+                                       onclick="clearPublishersSearch()"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-light table-striped table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Headquarters</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="publisher : ${publishers}">
+                        <td th:text="${publisher.name}"></td>
+                        <td th:text="${publisher.headquarters}"></td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{/publisher/{id}(id=${publisher.id})}">Details</a>
+                            <a class="btn btn-warning" th:href="@{/publisher/edit/{id}(id=${publisher.id})}">Edit</a>
+                            <a class="btn btn-danger" th:href="@{/publisher/delete/{id}(id=${publisher.id})}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    const clearPublishersSearch = () => {
+        window.location = "[[@{/publishers}]]";
+    }
+</script>
 </body>
 </html>

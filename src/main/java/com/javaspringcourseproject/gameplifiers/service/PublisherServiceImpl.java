@@ -53,4 +53,8 @@ public class PublisherServiceImpl implements PublisherService{
 
         return publishersToSearchByCriteria;
     }
+
+    public List<Publisher> findTopFivePublishers() {
+        return publisherRepository.findTop5ByOrderByNameAsc();
+    }
 }

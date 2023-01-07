@@ -911,11 +911,7 @@ Gaming Library Style
 
 .gaming-library .item ul li {
   display: inline-block;
-  width: 17%;
-}
-
-.gaming-library .item ul li:first-child {
-  width: 110px;
+  width: 33%;
 }
 
 .gaming-library .item ul li:last-child {

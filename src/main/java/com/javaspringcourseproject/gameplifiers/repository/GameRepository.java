@@ -21,6 +21,8 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     List<Game> findByPublisherNameContainingIgnoreCase(String publisherName);
 
+    List<Game> findTop5ByOrderByTitleAsc();
+
     @Query("SELECT g FROM Game g WHERE CONCAT(g.title, ' ', g.yearOfRelease, '', g.publisher.name) LIKE %?1%")
     List<Game> findGamesByKeyword(String keyword);
 }

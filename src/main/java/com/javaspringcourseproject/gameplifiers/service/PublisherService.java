@@ -15,4 +15,6 @@ public interface PublisherService {
     void deletePublisher(Publisher publisher);
 
     List<Publisher> searchPublishersByCriteria(@Nullable String criterion, @Nullable String searchTerm);
+
+    List<Publisher> findTopFivePublishers();
 }

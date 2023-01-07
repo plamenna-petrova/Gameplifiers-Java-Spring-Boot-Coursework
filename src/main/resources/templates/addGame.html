@@ -75,7 +75,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label for="annotation">Annotation</label>
+                        <label class="col-form-label text-light" for="annotation">Annotation</label>
                         <textarea th:field="*{annotation}" class="form-control" id="annotation" rows="10"></textarea>
                         <span th:if="${#fields.hasErrors('annotation')}" th:errors="*{annotation}" class="text-danger"></span>
                     </div>
