@@ -346,7 +346,7 @@ Header Style
   -moz-transition: all .5s ease 0s;
   -o-transition: all .5s ease 0s;
   transition: all .5s ease 0s;
-  display: none;
+  /*display: none;*/
 }
 
 .header-area {
@@ -372,7 +372,7 @@ Header Style
 }
 
 .background-header .main-nav {
-  padding: 0px;
+  padding-top: 10px;
   background-color: transparent;
 }
 
@@ -401,7 +401,7 @@ Header Style
 }
 
 .header-area .main-nav .logo {
-  border-right: 1px solid #27292a;
+  border-right: none;
   flex-basis: 25%;
   margin-right: 5%;
   -webkit-transition: all 0.3s ease 0s;
@@ -915,11 +915,11 @@ Gaming Library Style
 
 .gaming-library .item ul li {
   display: inline-block;
-  width: 33%;
+  width: 24%;
 }
 
 .gaming-library .item ul li:last-child {
-  width: 15%;
+  width: 25%;
   text-align: right;
 }
 
@@ -1548,7 +1548,7 @@ Profile Style
   margin-bottom: 15px;
 }
 
-.main-profile .main-info h5 {
+.main-profile .main-info h5, .main-profile .main-info div {
   margin-bottom: 10px;
 }
 
@@ -1725,6 +1725,9 @@ body {
   }
   .main-profile .main-info {
     margin: 45px 0px;
+  }
+  .header-area .main-nav .logo img {
+    padding-top: 10px;
   }
 }
 

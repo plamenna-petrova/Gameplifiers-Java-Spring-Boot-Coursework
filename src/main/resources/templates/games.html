@@ -17,8 +17,9 @@
     </style>
 </head>
 <body>
+<div th:replace="fragments/preloader :: preloader"></div>
 <!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky">
+<header class="header-area header-sticky background-header">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -40,7 +41,7 @@
 <!-- ***** Header Area End ***** -->
 <div th:switch="${games}" class="container my-5">
     <div class="row">
-        <div class="col--lg-12">
+        <div class="col-lg-12">
             <div class="page-content">
                 <h2 th:case="null">No games yet!</h2>
                 <div th:case="*">
@@ -84,7 +85,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="heading-section">
-                                    <h4><em>Every Wondering</em> How Long To Beat?</h4>
+                                    <h4><em>Ever Wondering</em> How Long To Beat?</h4>
                                 </div>
                                 <div class="row">
                                     <th:block th:each="game: ${games}">
@@ -104,7 +105,7 @@
                                                     <span class="text-primary" th:text="${game.yearOfRelease}"></span>
                                                     <br />
                                                     <span class="text-white">Published By: </span>
-                                                    <span class="text-primary" th:text="${game.publisher.name}"></span>
+                                                    <a class="text-primary" th:text="${game.publisher.name}" th:href="@{/publisher/{id}(id=${game.publisher.id})}"></a>
                                                     <div class="game-actions mt-3">
                                                         <a class="btn btn-success my-1" th:href="@{/game/{id}(id=${game.id})}">Details</a>
                                                         <a class="btn btn-warning mx-1 my-1" th:href="@{/game/edit/{id}(id=${game.id})}">Edit</a>
@@ -123,6 +124,12 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="/js/isotope.min.js"></script>
+<script src="/js/owl-carousel.js"></script>
+<script src="/js/custom.js"></script>
 <script type="text/javascript">
     const clearGamesSearch = () => {
         window.location = "[[@{/games}]]";
