@@ -12,26 +12,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{https://unpkg.com/swiper@7/swiper-bundle.min.css}"/>
 </head>
 <body>
-<!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky background-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="/welcome" class="logo">
-                        <img src="/images/Gameplifiers_Logo-removebg-preview.png" alt="">
-                    </a>
-                    <div th:replace="fragments/topnav :: navbar"></div>
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
-            </div>
-        </div>
-    </div>
-</header>
+<div th:replace="fragments/preloader :: preloader"></div>
+<div th:replace="fragments/header :: header"></div>
 <div th:switch="${publishers}" class="container my-5">
     <div class="row">
         <div class="col-lg-12">
@@ -115,6 +97,12 @@
     </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="/js/isotope.min.js"></script>
+<script src="/js/owl-carousel.js"></script>
+<script src="/js/custom.js"></script>
 <script type="text/javascript">
     const clearPublishersSearch = () => {
         window.location = "[[@{/publishers}]]";

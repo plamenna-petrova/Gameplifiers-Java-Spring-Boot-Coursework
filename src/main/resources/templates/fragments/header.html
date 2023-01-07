@@ -1,0 +1,33 @@
+<div th:fragment="header">
+    <header class="header-area header-sticky background-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/welcome" class="logo">
+                            <img src="/images/Gameplifiers_Logo-removebg-preview.png" alt="">
+                        </a>
+                        <ul class="nav">
+                            <li><a th:href="@{/welcome}" class="active">Home</a></li>
+                            <li><a th:href="@{/publishers}">Publishers</a></li>
+                            <li><a th:href="@{/games}">Games</a></li>
+                            <div sec:authorize="isAuthenticated()" class="logout-option mt-2">
+                                <form id="logoutForm" method="POST" th:action="@{/logout}">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                                <p class="welcome-text">Welcome, <span sec:authentication="name"></span> |
+                                    <a class="link-primary" onclick="document.forms['logoutForm'].submit()">Logout</a>
+                                </p>
+                            </div>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

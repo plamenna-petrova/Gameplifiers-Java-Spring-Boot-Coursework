@@ -67,8 +67,7 @@ public class UserServiceImpl implements UserService {
     public boolean checkCurrentUserAdministrativePrivileges() {
         List<Role> currentUserRolesToCheck = this.getCurrentUserRoles();
         List<String> roleNames = currentUserRolesToCheck.stream().map(Role::getName).collect(Collectors.toList());
-        boolean hasAdministrativePrivileges = roleNames.contains("Administrator") && roleNames.contains("Editor");
-        return hasAdministrativePrivileges;
+        return roleNames.contains("Administrator") && roleNames.contains("Editor");
     }
 
     private List<Role> getCurrentUserRoles() {

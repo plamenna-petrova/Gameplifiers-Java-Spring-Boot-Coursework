@@ -706,7 +706,7 @@ Header Style
     text-align: center;
   }
   .background-header.header-sticky .nav {
-    margin-top: 70px !important;
+    margin-top: 60px !important;
   }
   .header-area .main-nav .nav li:first-child {
     border-top: 1px solid #eee;
@@ -1728,6 +1728,12 @@ body {
   }
   .header-area .main-nav .logo img {
     padding-top: 10px;
+  }
+  .nav {
+    background: #ffffff;
+  }
+  .welcome-text {
+    display: inline;
   }
 }
 
