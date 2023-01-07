@@ -46,7 +46,9 @@
                 <h2 th:case="null">No games yet!</h2>
                 <div th:case="*">
                     <h2 class="games-heading mb-5">Games</h2>
-                    <a class="btn btn-primary" th:href="@{/add-game}">Create New Game</a>
+                    <div th:switch="${privileges}">
+                        <a th:case="'superuser'" class="btn btn-primary" th:href="@{/add-game}">Create New Game</a>
+                    </div>
                     <div class="container my-5 p-0">
                         <form th:action="@{/games}">
                             <div class="row">
@@ -104,12 +106,17 @@
                                                     <span class="text-white">Released In: </span>
                                                     <span class="text-primary" th:text="${game.yearOfRelease}"></span>
                                                     <br />
-                                                    <span class="text-white">Published By: </span>
+                                                    <span class="text-white mb-2">Published By: </span>
                                                     <a class="text-primary" th:text="${game.publisher.name}" th:href="@{/publisher/{id}(id=${game.publisher.id})}"></a>
-                                                    <div class="game-actions mt-3">
-                                                        <a class="btn btn-success my-1" th:href="@{/game/{id}(id=${game.id})}">Details</a>
-                                                        <a class="btn btn-warning mx-1 my-1" th:href="@{/game/edit/{id}(id=${game.id})}">Edit</a>
-                                                        <a class="btn btn-danger my-1" th:href="@{/game/delete/{id}(id=${game.id})}">Delete</a>
+                                                    <div th:switch="${privileges}">
+                                                        <div class="game-actions mt-3" th:case="'superuser'">
+                                                            <a class="btn btn-success my-1" th:href="@{/game/{id}(id=${game.id})}">Details</a>
+                                                            <a class="btn btn-warning mx-1 my-1" th:href="@{/game/edit/{id}(id=${game.id})}">Edit</a>
+                                                            <a class="btn btn-danger my-1" th:href="@{/game/delete/{id}(id=${game.id})}">Delete</a>
+                                                        </div>
+                                                        <div class="game-actions mt-3" th:case="'user'">
+                                                            <a class="btn btn-success my-1" th:href="@{/game/{id}(id=${game.id})}">Details</a>
+                                                        </div>
                                                     </div>
                                                 </h4>
                                             </div>

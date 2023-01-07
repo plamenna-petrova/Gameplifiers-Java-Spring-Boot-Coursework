@@ -6,8 +6,13 @@ import com.javaspringcourseproject.gameplifiers.repository.GameRepository;
 import com.javaspringcourseproject.gameplifiers.service.GameService;
 import com.javaspringcourseproject.gameplifiers.service.PublisherService;
 import com.javaspringcourseproject.gameplifiers.service.SecurityService;
+import com.javaspringcourseproject.gameplifiers.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -29,6 +36,9 @@ public class GameController {
     @Autowired
     PublisherService publisherService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/games")
     public String games(Model model, @Param("criterion") String criterion,
                         @Param("searchTerm") String searchTerm) {
@@ -37,6 +47,12 @@ public class GameController {
         model.addAttribute("games", gamesSearchResults);
         model.addAttribute("criterion", criterion);
         model.addAttribute("searchTerm", searchTerm);
+
+        if (userService.checkCurrentUserAdministrativePrivileges()) {
+            model.addAttribute("privileges", "superuser");
+        } else {
+            model.addAttribute("privileges", "user");
+        }
 
         return "games";
     }
@@ -52,6 +68,10 @@ public class GameController {
 
     @GetMapping("/add-game")
     public String addGame(Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         List<Publisher> listOfPublisherForCreationSelectList = publisherService.findAllPublishers();
 
         Game blankGame = new Game();
@@ -65,6 +85,10 @@ public class GameController {
 
     @PostMapping("/add-game")
     public String addGame(@Valid Game game, BindingResult bindingResult, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         if (bindingResult.hasErrors()) {
             return "addGame";
         }
@@ -79,6 +103,10 @@ public class GameController {
 
     @GetMapping("/game/edit/{id}")
     public String editGame(@PathVariable("id") Long id, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         List<Publisher> listOfPublisherForEditSelectList = publisherService.findAllPublishers();
 
         Game gameToEdit = gameService.findGameById(id);
@@ -92,6 +120,10 @@ public class GameController {
     @PostMapping("/game/update/{id}")
     public String updateGame(@PathVariable("id") Long id, @Valid Game gameToUpdate,
                                   BindingResult bindingResult, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         if (bindingResult.hasErrors()) {
             gameToUpdate.setId(id);
             List<Publisher> listOfPublisherForEditSelectList = publisherService.findAllPublishers();
@@ -109,6 +141,10 @@ public class GameController {
 
     @GetMapping("/game/delete/{id}")
     public String gameDeletionDetails(@PathVariable("id") Long id, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         Game gameToDelete = gameService.findGameById(id);
 
         model.addAttribute("game", gameToDelete);
@@ -118,6 +154,10 @@ public class GameController {
 
     @PostMapping("/game/delete/{id}")
     public String deleteGame(@PathVariable("id") Game gameToConfirmDeletion, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         gameService.deleteGame(gameToConfirmDeletion);
 
         List<Game> gamesToLoadAfterDeletion = gameService.findAllGames();

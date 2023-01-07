@@ -39,7 +39,9 @@
                 <h2 th:case="null">No publishers yet!</h2>
                 <div th:case="*">
                     <h2 class="publishers-heading mb-5">Publishers</h2>
-                    <a class="btn btn-primary" th:href="@{/add-publisher}">Create New Publisher</a>
+                    <div th:switch="${privileges}">
+                        <a th:case="'superuser'" class="btn btn-primary" th:href="@{/add-publisher}">Create New Publisher</a>
+                    </div>
                     <div class="container my-5 p-0">
                         <form th:action="@{/publishers}">
                             <div class="row">
@@ -91,10 +93,15 @@
                                             <span class="text-primary" th:text="${publisher.games.size()}"></span>
                                         </li>
                                         <li>
-                                            <div class="publishers-actions mt-3">
-                                                <a class="btn btn-success" th:href="@{/publisher/{id}(id=${publisher.id})}">Details</a>
-                                                <a class="btn btn-warning" th:href="@{/publisher/edit/{id}(id=${publisher.id})}">Edit</a>
-                                                <a class="btn btn-danger" th:href="@{/publisher/delete/{id}(id=${publisher.id})}">Delete</a>
+                                            <div th:switch="${privileges}">
+                                                <div class="publishers-actions mt-3" th:case="'superuser'">
+                                                    <a class="btn btn-success" th:href="@{/publisher/{id}(id=${publisher.id})}">Details</a>
+                                                    <a class="btn btn-warning" th:href="@{/publisher/edit/{id}(id=${publisher.id})}">Edit</a>
+                                                    <a class="btn btn-danger" th:href="@{/publisher/delete/{id}(id=${publisher.id})}">Delete</a>
+                                                </div>
+                                                <div class="publishers-actions mt-3" th:case="'user'">
+                                                    <a class="btn btn-success" th:href="@{/publisher/{id}(id=${publisher.id})}">Details</a>
+                                                </div>
                                             </div>
                                         </li>
                                     </ul>

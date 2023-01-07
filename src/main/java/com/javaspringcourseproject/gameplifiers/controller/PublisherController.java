@@ -24,6 +24,9 @@ public class PublisherController {
     @Autowired
     PublisherService publisherService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/publishers")
     public String publishers(Model model, @Param("criterion") String criterion,
                              @Param("searchTerm") String searchTerm) {
@@ -32,6 +35,12 @@ public class PublisherController {
         model.addAttribute("criterion", criterion);
         model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("publishers", publishersSearchResults);
+
+        if (userService.checkCurrentUserAdministrativePrivileges()) {
+            model.addAttribute("privileges", "superuser");
+        } else {
+            model.addAttribute("privileges", "user");
+        }
 
         return "publishers";
     }
@@ -47,6 +56,10 @@ public class PublisherController {
 
     @GetMapping("/add-publisher")
     public String addPublisher(Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         model.addAttribute("publisher", new Publisher());
 
         return "addPublisher";
@@ -54,6 +67,10 @@ public class PublisherController {
 
     @PostMapping("/add-publisher")
     public String addPublisher(@Valid Publisher publisher, BindingResult bindingResult, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         if (bindingResult.hasErrors()) {
             return "addPublisher";
         }
@@ -68,6 +85,10 @@ public class PublisherController {
 
     @GetMapping("/publisher/edit/{id}")
     public String editPublisher(@PathVariable("id") Long id, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         Publisher publisherToEdit = publisherService.findPublisherById(id);
 
         model.addAttribute("publisher", publisherToEdit);
@@ -78,6 +99,10 @@ public class PublisherController {
     @PostMapping("/publisher/update/{id}")
     public String updatePublisher(@PathVariable("id") Long id, @Valid Publisher publisherToUpdate,
                                   BindingResult bindingResult, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         if (bindingResult.hasErrors()) {
             publisherToUpdate.setId(id);
             return "editPublisher";
@@ -93,6 +118,10 @@ public class PublisherController {
 
     @GetMapping("/publisher/delete/{id}")
     public String publisherDeletionDetails(@PathVariable("id") Long id, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         Publisher publisherToDelete = publisherService.findPublisherById(id);
 
         model.addAttribute("publisher", publisherToDelete);
@@ -102,6 +131,10 @@ public class PublisherController {
 
     @PostMapping("/publisher/delete/{id}")
     public String deletePublisher(@PathVariable("id") Publisher publisherToConfirmDeletion, Model model) {
+        if (!userService.checkCurrentUserAdministrativePrivileges()) {
+            return "redirect:/welcome";
+        }
+
         publisherService.deletePublisher(publisherToConfirmDeletion);
 
         List<Publisher> publishersToLoadAfterDeletion = publisherService.findAllPublishers();
