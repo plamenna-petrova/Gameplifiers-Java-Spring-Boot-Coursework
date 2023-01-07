@@ -20,12 +20,12 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="name" class="col-form-label text-light">Name</label>
-                        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name of publisher">
+                        <input type="text" th:field="*{name}" class="form-control" id="name">
                         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="headquarters" class="col-form-label text-light">Headquarters</label>
-                        <input type="text" th:field="*{headquarters}" class="form-control" id="headquarters" placeholder="Headquarters">
+                        <input type="text" th:field="*{headquarters}" class="form-control" id="headquarters">
                         <span th:if="${#fields.hasErrors('headquarters')}" th:errors="*{headquarters}" class="text-danger"></span>
                     </div>
                 </div>

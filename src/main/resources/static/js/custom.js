@@ -197,7 +197,9 @@
 	        var refElement = $(currLink.attr("href"));
 	        if (refElement.position() !== undefined) {
 				if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-					$('.nav ul li a').removeClass("active");
+					if (currLink.hasClass("active")) {
+						$(currLink).removeClass("active");
+					}
 					currLink.addClass("active");
 				}
 				else{
@@ -206,7 +208,6 @@
 			}
 	    });
 	}
-
 
 	// Page loading animation
 	$(window).on('load', function() {
@@ -226,7 +227,6 @@
 		});
 	});
 
-	
 
 	const dropdownOpener = $('.main-nav ul.nav .has-sub > a');
 
@@ -264,9 +264,5 @@
             });
         });
     }
-
-
-	
-
 
 })(window.jQuery);

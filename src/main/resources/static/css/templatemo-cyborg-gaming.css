@@ -728,7 +728,10 @@ Header Style
   }
   .header-area .main-nav .nav li a:hover {
     background: #fff !important;
-    color: #1b3cc9!important;
+    color: #1b3cc9 !important;
+  }
+  .header-area .main-nav .nav li a:active {
+    color: #1b3cc9 !important;
   }
   .header-area .main-nav .nav li:last-child a img {
     display: none;

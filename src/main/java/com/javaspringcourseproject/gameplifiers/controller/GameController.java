@@ -82,6 +82,8 @@ public class GameController {
         }
 
         if (bindingResult.hasErrors()) {
+            List<Publisher> listOfPublisherForCreationSelectList = publisherService.findAllPublishers();
+            model.addAttribute("listOfPublishers", listOfPublisherForCreationSelectList);
             return "addGame";
         }
 
