@@ -26,6 +26,7 @@
                 <h2 th:case="null">No games yet!</h2>
                 <div th:case="*">
                     <h2 class="games-heading mb-5">Games</h2>
+                    <div class="alert alert-primary mb-5" role="alert" th:text="${success}" th:if="${success}"></div>
                     <div th:switch="${privileges}">
                         <a th:case="'superuser'" class="btn btn-primary" th:href="@{/add-game}">Create New Game</a>
                     </div>

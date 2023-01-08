@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.Year;
@@ -76,7 +77,8 @@ public class GameController {
     }
 
     @PostMapping("/add-game")
-    public String addGame(@Valid Game game, BindingResult bindingResult, Model model) {
+    public String addGame(@Valid Game gameToCreate, BindingResult bindingResult,
+                          Model model, RedirectAttributes redirectAttributes) {
         if (!userService.checkCurrentUserAdministrativePrivileges()) {
             return "redirect:/welcome";
         }
@@ -87,10 +89,13 @@ public class GameController {
             return "addGame";
         }
 
-        gameService.upsertGame(game);
+        gameService.upsertGame(gameToCreate);
 
         List<Game> gamesToLoadAfterCreation = gameService.findAllGames();
+
         model.addAttribute("games", gamesToLoadAfterCreation);
+        redirectAttributes.addFlashAttribute("success",
+                String.format("Game %s successfully created!", gameToCreate.getTitle()));
 
         return "redirect:/games";
     }
@@ -113,7 +118,7 @@ public class GameController {
 
     @PostMapping("/game/update/{id}")
     public String updateGame(@PathVariable("id") Long id, @Valid Game gameToUpdate,
-                                  BindingResult bindingResult, Model model) {
+                                  BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (!userService.checkCurrentUserAdministrativePrivileges()) {
             return "redirect:/welcome";
         }
@@ -128,7 +133,10 @@ public class GameController {
         gameService.upsertGame(gameToUpdate);
 
         List<Game> gamesToLoadAfterUpdate = gameService.findAllGames();
+
         model.addAttribute("game", gamesToLoadAfterUpdate);
+        redirectAttributes.addFlashAttribute("success",
+                String.format("Game %s successfully updated!", gameToUpdate.getTitle()));
 
         return "redirect:/games";
     }
@@ -147,7 +155,8 @@ public class GameController {
     }
 
     @PostMapping("/game/delete/{id}")
-    public String deleteGame(@PathVariable("id") Game gameToConfirmDeletion, Model model) {
+    public String deleteGame(@PathVariable("id") Game gameToConfirmDeletion,
+                             Model model, RedirectAttributes redirectAttributes) {
         if (!userService.checkCurrentUserAdministrativePrivileges()) {
             return "redirect:/welcome";
         }
@@ -157,6 +166,8 @@ public class GameController {
         List<Game> gamesToLoadAfterDeletion = gameService.findAllGames();
 
         model.addAttribute("games", gamesToLoadAfterDeletion);
+        redirectAttributes.addFlashAttribute("success",
+                String.format("Game %s successfully deleted!", gameToConfirmDeletion.getTitle()));
 
         return "redirect:/games";
     }

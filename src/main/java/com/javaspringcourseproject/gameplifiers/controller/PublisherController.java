@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -61,7 +62,8 @@ public class PublisherController {
     }
 
     @PostMapping("/add-publisher")
-    public String addPublisher(@Valid Publisher publisher, BindingResult bindingResult, Model model) {
+    public String addPublisher(@Valid Publisher publisherToCreate, BindingResult bindingResult,
+                               Model model, RedirectAttributes redirectAttributes) {
         if (!userService.checkCurrentUserAdministrativePrivileges()) {
             return "redirect:/welcome";
         }
@@ -70,10 +72,13 @@ public class PublisherController {
             return "addPublisher";
         }
 
-        publisherService.upsertPublisher(publisher);
+        publisherService.upsertPublisher(publisherToCreate);
 
         List<Publisher> publishersToLoadAfterCreation = publisherService.findAllPublishers();
+
         model.addAttribute("publishers", publishersToLoadAfterCreation);
+        redirectAttributes.addFlashAttribute("success",
+                String.format("Publisher %s successfully created!", publisherToCreate.getName()));
 
         return "redirect:/publishers";
     }
@@ -93,7 +98,7 @@ public class PublisherController {
 
     @PostMapping("/publisher/update/{id}")
     public String updatePublisher(@PathVariable("id") Long id, @Valid Publisher publisherToUpdate,
-                                  BindingResult bindingResult, Model model) {
+                                  BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (!userService.checkCurrentUserAdministrativePrivileges()) {
             return "redirect:/welcome";
         }
@@ -106,7 +111,10 @@ public class PublisherController {
         publisherService.upsertPublisher(publisherToUpdate);
 
         List<Publisher> publishersToLoadAfterUpdate = publisherService.findAllPublishers();
+
         model.addAttribute("publisher", publishersToLoadAfterUpdate);
+        redirectAttributes.addFlashAttribute("success",
+                String.format("Publisher %s successfully updated!", publisherToUpdate.getName()));
 
         return "redirect:/publishers";
     }
@@ -125,7 +133,8 @@ public class PublisherController {
     }
 
     @PostMapping("/publisher/delete/{id}")
-    public String deletePublisher(@PathVariable("id") Publisher publisherToConfirmDeletion, Model model) {
+    public String deletePublisher(@PathVariable("id") Publisher publisherToConfirmDeletion,
+                                  Model model, RedirectAttributes redirectAttributes) {
         if (!userService.checkCurrentUserAdministrativePrivileges()) {
             return "redirect:/welcome";
         }
@@ -135,6 +144,8 @@ public class PublisherController {
         List<Publisher> publishersToLoadAfterDeletion = publisherService.findAllPublishers();
 
         model.addAttribute("publishers", publishersToLoadAfterDeletion);
+        redirectAttributes.addFlashAttribute("success",
+                String.format("Publisher %s successfully deleted!", publisherToConfirmDeletion.getName()));
 
         return "redirect:/publishers";
     }

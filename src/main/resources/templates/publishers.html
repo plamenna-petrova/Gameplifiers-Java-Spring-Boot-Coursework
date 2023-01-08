@@ -21,6 +21,7 @@
                 <h2 th:case="null">No publishers yet!</h2>
                 <div th:case="*">
                     <h2 class="publishers-heading mb-5">Publishers</h2>
+                    <div class="alert alert-primary mb-5" role="alert" th:text="${success}" th:if="${success}"></div>
                     <div th:switch="${privileges}">
                         <a th:case="'superuser'" class="btn btn-primary" th:href="@{/add-publisher}">Create New Publisher</a>
                     </div>
